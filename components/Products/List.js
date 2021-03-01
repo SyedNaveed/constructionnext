@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useRef } from "react";
 import Link from "next/link";
 import { Menu } from "antd";
 import VideoChatModalv from "./VideoChatModelv";
@@ -8,8 +8,14 @@ import { useRouter } from "next/router";
 import { useDispatch, useSelector } from "react-redux";
 import getProductsData from "@store/actions/products";
 import { baseURL } from "@config/config";
+import EmailBlockv from "./EmailBlockv";
+import { useReactToPrint } from 'react-to-print';
 
 const List = () => {
+  const componentRef = useRef();
+  const handlePrint = useReactToPrint({
+    content: () => componentRef.current,
+  });
   const router = useRouter();
   const dispatch = useDispatch();
   const productsData = useSelector((state) => state.products.products);
@@ -85,6 +91,13 @@ const List = () => {
     </Menu>
   );
   return (
+  //   <> <div className="container">
+  //   <EmailBlockv />
+  //   <a onClick={handlePrint}>
+  //     {" "}
+  //     <i className="fa fa-print" aria-hidden="true"></i> Print
+  //   </a>
+  // </div>
     <div className="listing-content col-md-9 col-xs-12">
       {productsData.map((product, index) => (
         <div key={index} className="views-row">
@@ -180,6 +193,7 @@ const List = () => {
         </div>
       ))}
     </div>
+    // </>
   );
 };
 

@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useRef } from "react";
 import {
   Modal,
   Form,
@@ -13,6 +13,7 @@ import submitContant from "@store/actions/forms/emailblock";
 
 // antd v3
 const EmailBlockv = ({ form: { getFieldDecorator, validateFields } }) => {
+  
   const [isModalVisible, setIsModalVisible] = useState(false);
   const [loading, setLoading] = useState(false);
   const showModal = () => {
@@ -99,10 +100,11 @@ const EmailBlockv = ({ form: { getFieldDecorator, validateFields } }) => {
         </a>
       </p>
       <p>
-        <a>
+        {/* <a onClick={handlePrint}>
           {" "}
           <i className="fa fa-print" aria-hidden="true"></i> Print
-        </a>
+        </a> */}
+        {/* <Print /> */}
       </p>
       <Modal
         className="modal-filters customant-popups"

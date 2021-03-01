@@ -1,11 +1,19 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useRef } from "react";
 import Equipments from "@components/Common/Equipments";
 import { baseURL } from "@config/config";
 import "react-responsive-carousel/lib/styles/carousel.min.css"; // requires a loader
 import { Carousel } from "react-responsive-carousel";
+import VideoChatModalv from "../VideoChatModelv";
+import EmailSellerModalv from '../EmailSellerModalv';
+import EmailBlockv from "../EmailBlockv";
+import { useReactToPrint } from 'react-to-print';
 
 const Main = ({ content }) => {
-  console.log({content});
+  const componentRef = useRef();
+  const handlePrint = useReactToPrint({
+    content: () => componentRef.current,
+  });
+  console.log({ content });
   const [images, setContentImages] = useState([]);
   useEffect(() => {
     if (
@@ -38,6 +46,13 @@ const Main = ({ content }) => {
       <div className="product-detail-section">
         <Equipments />
         <div className="container">
+          <EmailBlockv />
+          <a onClick={handlePrint}>
+            {" "}
+            <i className="fa fa-print" aria-hidden="true"></i> Print
+          </a>
+        </div>
+        <div ref={componentRef} className="container">
           <div className="row">
             <div className="col-lg-8 col-md-8">
               <Carousel infiniteLoop={true}>
@@ -92,7 +107,7 @@ const Main = ({ content }) => {
                   </div>
                   <div className="pro-det-sub-title">
                     <div className="field field--name-field-description ">
-                    {!!content && content.field_description }
+                      {!!content && content.field_description}
                     </div>
                   </div>
                   <div className="pro-det-prbtn">
@@ -122,12 +137,13 @@ const Main = ({ content }) => {
                   </div>
                   <div className="pro-rt2-lft-video rigth-side-detailp">
                     <p>
-                      <a
+                      <VideoChatModalv />
+                      {/* <a
                         className="cboxElement"
                         data-colorbox-inline=".webform-submission-video-chat-form"
                       >
                         Video Chat With This Dealer
-                      </a>
+                      </a> */}
                     </p>
                   </div>
                   <div className="pro-rt2-lft-loc rigth-side-detailp">
@@ -140,17 +156,18 @@ const Main = ({ content }) => {
                   </div>
                   <div className="pro-send-emailbtn rigth-side-detailp">
                     <p>
-                      <a
+                      {/* <a
                         className="cboxElement"
                         data-colorbox-inline=".webform-submission-email-seller-form"
-                      >
-                        {/* {!!content && content.field_heater} */}
-                        <i
+                      > */}
+                      {/* {!!content && content.field_heater} */}
+                      {/* <i
                           className="fa fa-envelope"
                           aria-hidden="true"
                         ></i>{" "}
                         SEND EMAIL
-                      </a>
+                      </a> */}
+                      <EmailSellerModalv />
                     </p>
                   </div>
                 </div>
@@ -249,6 +266,7 @@ const Main = ({ content }) => {
           </div>
         </div>
       </div>
+
     </>
   );
 };

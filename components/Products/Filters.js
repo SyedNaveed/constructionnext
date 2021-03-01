@@ -50,7 +50,7 @@ const Filters = ({
 
     // First map the nodes of the array to an object -> create a hash table.
     for (var i = 0, len = arr.length; i < len; i++) {
-      arrElem = arr[i];
+      arrElem = arr[i];      
       mappedArr[arrElem.tid] = arrElem;
       mappedArr[arrElem.tid]["children"] = [];
     }
